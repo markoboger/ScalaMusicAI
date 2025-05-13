@@ -12,14 +12,14 @@ object ScaleExample extends App with MusicDSL {
   
   // Define a simple C major scale
   val cMajorScale = Seq(
-    C(4).withDuration(q),
-    D(4).withDuration(q),
-    E(4).withDuration(q),
-    F(4).withDuration(q),
-    G(4).withDuration(q),
-    A(4).withDuration(q),
-    B(4).withDuration(q),
-    C(5).withDuration(q)
+    Note(C(4), q),
+    Note(D(4), q),
+    Note(E(4), q),
+    Note(F(4), q),
+    Note(G(4), q),
+    Note(A(4), q),
+    Note(B(4), q),
+    Note(C(5), q)
   )
   
   // Create a measure with the scale
@@ -67,7 +67,9 @@ object ScaleExample extends App with MusicDSL {
   
   // Play individual notes with different instruments
   println("\nPlaying individual notes with different instruments...")
-  playNote(C(4), q, 0.7, MidiInstrument.Piano)
-  playNote(E(4), q, 0.7, MidiInstrument.Guitar)
-  playNote(G(4), h, 0.7, MidiInstrument.Trumpet)
+  play(Seq(
+    Note(C(4), q, 0.7, None, MidiInstrument.Piano),
+    Note(E(4), q, 0.7, None, MidiInstrument.Guitar),
+    Note(G(4), h, 0.7, None, MidiInstrument.Trumpet)
+  ))
 }

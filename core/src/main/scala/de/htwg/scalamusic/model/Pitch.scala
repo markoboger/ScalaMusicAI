@@ -21,19 +21,39 @@ object PitchClass {
   val all: Seq[PitchClass] = Seq(C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, B)
 }
 
-case class Pitch(pitchClass: PitchClass, octave: Octave) {
+case class Pitch(pitchClass: PitchClass, octave: Octave, duration: DurationValue = DurationValue.Quarter, instrument: Int = 0) {
   override def toString: String = s"$pitchClass$octave"
   
+  // Transpose by semitones
   def +(semitones: Int): Pitch = {
     val currentIndex = PitchClass.all.indexOf(pitchClass)
     val totalSemitones = currentIndex + semitones
     // Custom modulo that works with negative numbers
     val newIndex = ((totalSemitones % 12) + 12) % 12
     val octaveShift = if (totalSemitones < 0) (totalSemitones - 11) / 12 else totalSemitones / 12
-    Pitch(PitchClass.all(newIndex), octave + octaveShift)
+    this.copy(pitchClass = PitchClass.all(newIndex), octave = octave + octaveShift)
   }
   
+  // Transpose down by semitones
   def -(semitones: Int): Pitch = this + (-semitones)
+  
+  // Octave control with apostrophes
+  def unary_+ : Pitch = this.copy(octave = octave + 1)  // One octave up
+  def unary_- : Pitch = this.copy(octave = octave - 1)  // One octave down
+  
+  // Multiple octaves using multiple apostrophes
+  def `'` : Pitch = this.copy(octave = octave + 1)  // One octave up
+  def `''` : Pitch = this.copy(octave = octave + 2) // Two octaves up
+  def `'''` : Pitch = this.copy(octave = octave + 3) // Three octaves up
+  
+  // Set duration
+  def withDuration(duration: DurationValue): Pitch = this.copy(duration = duration)
+  
+  // Set instrument
+  def withInstrument(instrument: Int): Pitch = this.copy(instrument = instrument)
+  
+  // For backward compatibility
+  def apply(octave: Int): Pitch = this.copy(octave = octave)
 }
 
 object Pitch {

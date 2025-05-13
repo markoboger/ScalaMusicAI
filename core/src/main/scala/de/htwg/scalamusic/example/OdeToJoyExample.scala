@@ -32,30 +32,30 @@ object OdeToJoyExample extends App with MusicDSL {
   
   // Create measures with the melody
   val measure1 = measure(
-    E(4).withDuration(q),
-    E(4).withDuration(q),
-    F(4).withDuration(q),
-    G(4).withDuration(q)
+    Note(E(4), q),
+    Note(E(4), q),
+    Note(F(4), q),
+    Note(G(4), q)
   )
   
   val measure2 = measure(
-    G(4).withDuration(q),
-    F(4).withDuration(q),
-    E(4).withDuration(q),
-    D(4).withDuration(q)
+    Note(G(4), q),
+    Note(F(4), q),
+    Note(E(4), q),
+    Note(D(4), q)
   )
   
   val measure3 = measure(
-    C(4).withDuration(q),
-    C(4).withDuration(q),
-    D(4).withDuration(q),
-    E(4).withDuration(q)
+    Note(C(4), q),
+    Note(C(4), q),
+    Note(D(4), q),
+    Note(E(4), q)
   )
   
   val measure4 = measure(
-    E(4).withMultiplier(q, DurationMultiplier.Triplet),
-    D(4).withMultiplier(e, DurationMultiplier.Triplet),
-    D(4).withDuration(h)
+    Note(E(4), q * DurationMultiplier.Triplet.factor),
+    Note(D(4), e * DurationMultiplier.Triplet.factor),
+    Note(D(4), h)
   )
   
   // Create a score with the measures
@@ -86,5 +86,5 @@ object OdeToJoyExample extends App with MusicDSL {
   
   // Play just the melody with a different tempo
   println("\nPlaying just the melody faster...")
-  play(melody, 180)  // Faster tempo (180 BPM)
+  play(melody.map(p => Note(p.pitch, p.duration)), 180)  // Faster tempo (180 BPM)
 }

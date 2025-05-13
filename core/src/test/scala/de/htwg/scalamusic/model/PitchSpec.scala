@@ -17,6 +17,28 @@ class PitchSpec extends AnyWordSpec with Matchers {
         Pitch.D(4) shouldBe Pitch(PitchClass.D, 4)
         Pitch.E(4) shouldBe Pitch(PitchClass.E, 4)
       }
+      
+      "support octave control with apostrophes and unary operators" in {
+        val c4 = Pitch.C(4)
+        c4.`'` shouldBe Pitch.C(5)    // One octave up
+        c4.`''` shouldBe Pitch.C(6)   // Two octaves up
+        c4.`'''` shouldBe Pitch.C(7)  // Three octaves up
+        
+        // Test unary operators
+        val c5 = +c4
+        c5 shouldBe Pitch.C(5)  // One octave up from C4
+        
+        val c3 = -c4
+        c3 shouldBe Pitch.C(3)  // One octave down from C4
+        
+        val c2 = -c3
+        c2 shouldBe Pitch.C(2)  // One octave down from C3
+        
+        // Test with different notes
+        val g4 = Pitch.G(4)
+        g4.`'` shouldBe Pitch.G(5)
+        -g4 shouldBe Pitch.G(3)
+      }
     }
     
     "transposed" should {

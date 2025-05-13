@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 /**
  * DSL for creating music in a more expressive way
  */
-trait MusicDSL {
+trait MusicDSL extends ChordDSL {
   // Note constructors
   def C(octave: Int): Pitch = Pitch.C(octave)
   def CSharp(octave: Int): Pitch = Pitch(PitchClass.CSharp, octave)
@@ -24,6 +24,29 @@ trait MusicDSL {
   def ASharp(octave: Int): Pitch = Pitch(PitchClass.ASharp, octave)
   def B(octave: Int): Pitch = Pitch.B(octave)
   
+  // Lowercase note aliases with default octave (4)
+  def c(octave: Int = 4): Pitch = C(octave)
+  def cSharp(octave: Int = 4): Pitch = CSharp(octave)
+  def d(octave: Int = 4): Pitch = D(octave)
+  def dSharp(octave: Int = 4): Pitch = DSharp(octave)
+  def e(octave: Int = 4): Pitch = E(octave)
+  def f(octave: Int = 4): Pitch = F(octave)
+  def fSharp(octave: Int = 4): Pitch = FSharp(octave)
+  def g(octave: Int = 4): Pitch = G(octave)
+  def gSharp(octave: Int = 4): Pitch = GSharp(octave)
+  def a(octave: Int = 4): Pitch = A(octave)
+  def aSharp(octave: Int = 4): Pitch = ASharp(octave)
+  def b(octave: Int = 4): Pitch = B(octave)
+  
+  // Alias for natural notes without octave (defaults to 4)
+  val c: Pitch = c()
+  val d: Pitch = d()
+  val eNote: Pitch = e()  // Renamed from 'e' to 'eNote' to avoid conflict with duration value
+  val f: Pitch = f()
+  val g: Pitch = g()
+  val aNote: Pitch = a()  // Renamed from 'a' to 'aNote' to avoid conflict with Matchers trait
+  val b: Pitch = b()
+  
   // Aliases for backward compatibility
   @deprecated("Use CSharp instead", "1.0.0") def `C#`(octave: Int): Pitch = CSharp(octave)
   @deprecated("Use DSharp instead", "1.0.0") def `D#`(octave: Int): Pitch = DSharp(octave)
@@ -31,12 +54,20 @@ trait MusicDSL {
   @deprecated("Use GSharp instead", "1.0.0") def `G#`(octave: Int): Pitch = GSharp(octave)
   @deprecated("Use ASharp instead", "1.0.0") def `A#`(octave: Int): Pitch = ASharp(octave)
   
-  // Duration values
-  val w = DurationValue.Whole
-  val h = DurationValue.Half
-  val q = DurationValue.Quarter
-  val e = DurationValue.Eighth
-  val s = DurationValue.Sixteenth
+  // Duration values (using numbers to avoid conflicts with note names)
+  // The number represents the fraction of a whole note (e.g., E1 = whole, E2 = half, etc.)
+  val E1 = DurationValue.Whole     // Whole note (1/1)
+  val E2 = DurationValue.Half      // Half note (1/2)
+  val E4 = DurationValue.Quarter   // Quarter note (1/4)
+  val E8 = DurationValue.Eighth    // Eighth note (1/8)
+  val E16 = DurationValue.Sixteenth // Sixteenth note (1/16)
+  
+  // Legacy duration values (deprecated, use E1, E2, E4, etc. instead)
+  @deprecated("Use E1 instead", "1.0.0") val w: DurationValue = E1
+  @deprecated("Use E2 instead", "1.0.0") val h: DurationValue = E2
+  @deprecated("Use E4 instead", "1.0.0") val q: DurationValue = E4
+  @deprecated("Use E8 instead", "1.0.0") val e: DurationValue = E8
+  @deprecated("Use E16 instead", "1.0.0") val s: DurationValue = E16
   
   // Tuplets
   val triplet = DurationMultiplier.Triplet
