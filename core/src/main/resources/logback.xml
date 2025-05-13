@@ -1,0 +1,15 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%highlight(%-5level) %logger{15} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+  
+  <!-- Suppress Java MIDI verbose logging -->
+  <logger name="javax.sound" level="WARN" />
+  <logger name="com.sun.media" level="WARN" />
+</configuration>

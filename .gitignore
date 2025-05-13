@@ -1,0 +1,98 @@
+# sbt specific
+.cache/
+.history/
+.lib/
+.dist/
+.target/
+.lib_managed/
+.cache
+.coursier/
+project/target/
+project/project/
+project/project/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+.idea
+.idea_modules/
+
+# VS Code specific
+.vscode/
+*.code-workspace
+
+# Build files
+target/
+.history/
+.idea/
+.idea_modules/
+*.class
+*.log
+
+# Logs
+logs/
+*.log
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Metals
+.metals/
+.bloop/
+.metals.sbt
+metals.sbt
+
+# Ensime
+.ensime
+.ensime_lucene
+.ensime_cache/
+
+# Bloop
+.bloop/
+.bloopio/
+
+# Mill
+out/
+
+# JVM
+jvm/
+*.jfr
+
+# sbt-bloop
+.bloop/
+.metals/
+metals.sbt
+
+# Metals
+.metals/
+metals.sbt
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# MacOS
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Local development
+.local/
+
+# sbt native packager
+docker/target/
+dist/
